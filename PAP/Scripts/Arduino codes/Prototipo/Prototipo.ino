@@ -141,16 +141,6 @@ void processIncomingLine( char* line, int charNB ) {
   newPos.x = 0.0;
   newPos.y = 0.0;
 
-  //  Needs to interpret 
-  //  G1 for moving
-  //  G4 P300 (wait 150ms)
-  //  G1 X60 Y30
-  //  G1 X30 Y50
-  //  M300 S30 (pen down)
-  //  M300 S50 (pen up)
-  //  Discard anything with a (
-  //  Discard any other command!
-
   while( currentIndex < charNB ) {
     switch ( line[ currentIndex++ ] ) {              
     case 'U':
@@ -161,8 +151,6 @@ void processIncomingLine( char* line, int charNB ) {
       break;
     case 'G':
       buffer[0] = line[ currentIndex++ ];          
-      //      buffer[1] = line[ currentIndex++ ];
-      //      buffer[2] = '\0';
       buffer[1] = '\0';
 
       switch ( atoi( buffer ) ){                  
@@ -184,7 +172,7 @@ void processIncomingLine( char* line, int charNB ) {
           newPos.x = atof( indexX + 1);
         }
         drawLine(newPos.x, newPos.y );
-        //        Serial.println("ok");
+
         actuatorPos.x = newPos.x;
         actuatorPos.y = newPos.y;
         break;
@@ -220,9 +208,6 @@ void processIncomingLine( char* line, int charNB ) {
       }
     }
   }
-
-
-
 }
 
 void drawLine(float x1, float y1) {
